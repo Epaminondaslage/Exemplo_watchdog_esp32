@@ -8,7 +8,8 @@ Aqui estão algumas diretrizes sobre onde colocar o esp_task_wdt_reset():
 Se o seu código contém loops ou tarefas que podem demorar mais do que o tempo limite do watchdog para serem concluídas, você deve chamar esp_task_wdt_reset() dentro dessas tarefas ou após elas, garantindo que o watchdog seja alimentado antes que o tempo limite seja excedido.
 
 Exemplo:
-'''
+
+```
 void loop() {
   // Simulação de tarefa que roda corretamente
   for (int i = 0; i < 5; i++) {
@@ -33,7 +34,9 @@ void longTask() {
     delay(500);  // Cada ciclo desta tarefa demora 500 ms
   }
 }
-'''
+
+```
+
 Nesse exemplo, o esp_task_wdt_reset() é chamado após o loop principal e após a tarefa longTask(), garantindo que o WDT seja alimentado regularmente.
 2. No final do loop():
 
