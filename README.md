@@ -1,4 +1,4 @@
-# Exemplo_watchdog_esp32
+# Exemplo de uso de watchdog no ESP32
  
 A função esp_task_wdt_reset() deve ser chamada periodicamente dentro do loop principal para "alimentar" o Watchdog Timer e evitar que ele reinicie o sistema. O local específico onde você deve colocar essa função depende de como o código está estruturado e quais partes podem potencialmente travar.
 
@@ -8,9 +8,7 @@ Aqui estão algumas diretrizes sobre onde colocar o esp_task_wdt_reset():
 Se o seu código contém loops ou tarefas que podem demorar mais do que o tempo limite do watchdog para serem concluídas, você deve chamar esp_task_wdt_reset() dentro dessas tarefas ou após elas, garantindo que o watchdog seja alimentado antes que o tempo limite seja excedido.
 
 Exemplo:
-
-cpp
-
+'''
 void loop() {
   // Simulação de tarefa que roda corretamente
   for (int i = 0; i < 5; i++) {
@@ -35,7 +33,7 @@ void longTask() {
     delay(500);  // Cada ciclo desta tarefa demora 500 ms
   }
 }
-
+'''
 Nesse exemplo, o esp_task_wdt_reset() é chamado após o loop principal e após a tarefa longTask(), garantindo que o WDT seja alimentado regularmente.
 2. No final do loop():
 
